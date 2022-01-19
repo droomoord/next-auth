@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user";
+import dbConnect from "../lib/dbConnect";
 
 const WithAuth = (gssp) => {
   return async (context) => {
@@ -14,7 +15,7 @@ const WithAuth = (gssp) => {
         };
       }
       const decode = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET);
-
+      await dbConnect();
       const user = await User.findById(decode.user.id);
 
       context.user = JSON.stringify(user);

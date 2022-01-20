@@ -12,7 +12,7 @@ import WithoutAuth from "../HOC/withoutauth";
 const Register = () => {
   const router = useRouter();
 
-  const [email, setEmail] = useState("test@gmail.com");
+  const [email, setEmail] = useState("heijnenkris@gmail.com");
   const [password, setPassword] = useState("Hallo123");
   const [password2, setPassword2] = useState("Hallo123");
   const [message, setMessage] = useState("");

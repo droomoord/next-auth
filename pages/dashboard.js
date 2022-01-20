@@ -3,6 +3,15 @@ import WithAuth from "../HOC/withauth";
 import Navbar from "../components/navbar";
 
 const Dashboard = ({ user }) => {
+  if (!user.verified.isVerified) {
+    return (
+      <div className="center">
+        <strong style={{ color: "white" }}>
+          Please confirm your email first!
+        </strong>
+      </div>
+    );
+  }
   return (
     <>
       <Navbar user={user} />
@@ -16,9 +25,10 @@ const Dashboard = ({ user }) => {
 export default Dashboard;
 
 export const getServerSideProps = WithAuth((context) => {
+  const { user } = context;
   return {
     props: {
-      user: JSON.parse(context.user),
+      user: JSON.parse(user),
     },
   };
 });

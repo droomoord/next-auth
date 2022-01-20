@@ -20,7 +20,7 @@ export default async function handler(req, res) {
   }
   try {
     await dbConnect();
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).select("password");
     if (!user) return res.status(401).send("wrong credentials");
 
     async function compare(password, storedPassword) {
@@ -34,10 +34,7 @@ export default async function handler(req, res) {
     }
     const match = await compare(password, user.password);
     if (match) {
-      const token = jwt.sign(
-        { user: { email: user.email, id: user.id } },
-        process.env.JWT_SECRET
-      );
+      const token = jwt.sign({ user: user.id }, process.env.JWT_SECRET);
       res.status(200).json({ jwt: token });
     } else res.status(401).send("unauthorized");
   } catch (error) {

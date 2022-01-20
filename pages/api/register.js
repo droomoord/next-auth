@@ -62,10 +62,7 @@ export default async function handler(req, res) {
         newUser.email
       );
     }
-    const token = jwt.sign(
-      { user: { email: newUser.email, id: newUser.id } },
-      process.env.JWT_SECRET
-    );
+    const token = jwt.sign({ user: newUser.id }, process.env.JWT_SECRET);
     res.status(200).json({ jwt: token });
   } catch (error) {
     console.log(error.message);

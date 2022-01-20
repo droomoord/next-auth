@@ -43,21 +43,25 @@ export default async function handler(req, res) {
     }
     const hashedPassword = await hashPassword(password);
     const randomString = cryptoRandomString({ length: 10, type: "url-safe" });
+    const mailVerification = process.env.MAIL_VERIFICATION == "true";
     const newUser = await User({
       email,
       password: hashedPassword,
       verified: {
-        isVerified: false,
+        isVerified: !mailVerification,
         hash: randomString,
       },
     });
     await newUser.save();
-    await sendVerificationMail(
-      req.headers.host,
-      randomString,
-      newUser.id,
-      newUser.email
-    );
+
+    if (mailVerification) {
+      await sendVerificationMail(
+        req.headers.host,
+        randomString,
+        newUser.id,
+        newUser.email
+      );
+    }
     const token = jwt.sign(
       { user: { email: newUser.email, id: newUser.id } },
       process.env.JWT_SECRET

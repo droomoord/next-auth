@@ -19,6 +19,7 @@ const UserSchema = new mongoose.Schema({
     },
     hash: {
       type: String,
+      select: false,
     },
   },
 });

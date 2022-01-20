@@ -17,7 +17,7 @@ export default Verify;
 export const getServerSideProps = async (context) => {
   try {
     const { hash, id } = context.query;
-    const user = await User.findById(id);
+    const user = await User.findById(id).select("verified");
     if (user.verified.isVerified) {
       return {
         props: {

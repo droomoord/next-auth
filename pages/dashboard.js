@@ -1,14 +1,13 @@
 import WithAuth from "../HOC/withauth";
-import Navbar from "../components/navbar";
+import MainLayout from "../components/layout/main";
 
 const Dashboard = ({ user }) => {
   return (
-    <>
-      <Navbar user={user} />
+    <MainLayout user={user}>
       <div className="center">
         <h1 style={{ color: "white" }}>Dashboard for {user.email}</h1>
       </div>
-    </>
+    </MainLayout>
   );
 };
 

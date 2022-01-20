@@ -23,7 +23,7 @@ const Verify = () => {
         gap: "1em",
       }}
     >
-      <MarkEmailReadIcon color="secondary" style={{ fontSize: "3em" }} />
+      <MarkEmailReadIcon color="secondary" style={{ fontSize: "1em" }} />
       <p style={{ textAlign: "center" }}>
         Please click on the link in the verification email!
       </p>

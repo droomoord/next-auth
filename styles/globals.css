@@ -20,8 +20,16 @@ a {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  min-width: 20em;
 }
+input {
+  min-width: 60vw !important;
+}
+@media only screen and (min-width: 700px) {
+  input {
+    min-width: unset !important;
+  }
+}
+
 form {
   display: flex;
   flex-direction: column;

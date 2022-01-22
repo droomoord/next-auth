@@ -44,6 +44,7 @@ const Login = () => {
       console.log(error);
       setLoading(false);
       setMessage("Wrong username/password combination");
+      setPassword("");
     }
   }
 

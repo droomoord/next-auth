@@ -52,11 +52,6 @@ export default async function handler(req, res) {
         hash: randomString,
       },
     });
-    await newUser.save();
-
-    const token = jwt.sign({ user: newUser.id }, process.env.JWT_SECRET);
-    res.status(200).json({ jwt: token });
-
     if (mailVerification) {
       await sendVerificationMail(
         req.headers.host,
@@ -65,6 +60,9 @@ export default async function handler(req, res) {
         newUser.email
       );
     }
+    await newUser.save();
+    const token = jwt.sign({ user: newUser.id }, process.env.JWT_SECRET);
+    res.status(200).json({ jwt: token });
   } catch (error) {
     console.log(error.message);
     res.status(400).send(error.message);
